@@ -5,7 +5,7 @@
 - **【初赛成绩】** F1 Score：0.54676 【14/140】     
 - **【复赛成绩】** F1 Score：0.59972 【18/50】    
 - **【团队成员】** 李想[@似水5494264](https://blog.csdn.net/tiancailx)(同方威视技术股份有限公司)、
-                  于子锋[@诺艾尔和阿梓喵](https://github.com/nuoaier)(惠州市安品新材料有限公司)、
+                  于子锋[@诺艾尔和阿梓喵](https://github.com/nuoaier)、
                   杨航[@绝对灬尖刀ok](https://aistudio.baidu.com/aistudio/personalcenter/thirdview/315398)(上海汽车变速器有限公司)
 
 ****************************************************************************************************************************************
@@ -61,19 +61,35 @@
     【5】 验证结果：复赛训练集很大，不建议在复赛训练阶段加入验证，时间较长。验证阶段，在配置文件中将save_prediction_only=true时，将会直接生成检测结果的文件，存放在detect文件夹中
     
 **************************************************************************************************************************************** 
-  - **细分类训练及匹配**        
+  - **细分类训练及匹配        
   
     【1】 下载ResNet152度量学习预训练模型    
 
     【2】 对数据集进行细分类训练，能够进行匹配的样本作为一类，在work/metric_learning_traffic/train_elem.py中将image_shape改为[3,128,128]训练18000迭代，细分类训练部分对最终结果影响较小
     
-    【3】 基于训练好的模型进行finetune，通过triplet loss进行匹配训练, 因为细分类对f1结果的影响较小，所以我们直接采用初赛的细分类预训练模型进行训练，同时我们求得数据集图像大小的均值和方差，
+    【3】 基于训练好的模型进行finetune，通过triplet loss进行匹配训练, 求得数据集图像大小的均值和方差。去掉了随机裁剪，并将interpolation修改为更为广泛使用的线性插值cv2.INTER_LANCZOS4在work/metric_learning_traffic/imgtool.py中修改
 
-    【4】 将gamma改为[0.3,0.1,0.01]，学习率以及学习率衰减同基线，最后一次衰减减少1万次迭代，共迭代11万次，milestones为[60000，80000，100000]。分别在faster_rcnn_x101_vd_64x4d_fpn_1x.yml和 faster_rcnn_x101_vd_64x4d_fpn_1x_test.yml中的配置文件修改
+    【4】 在work/metric_learning_traffic/train_pair.py文件中修改image_size为[3,128,128],调试并采用margin为0.7
 
-    【5】 验证结果：复赛训练集很大，不建议在复赛训练阶段加入验证，时间较长。验证阶段，在配置文件中将save_prediction_only=true时，将会直接生成检测结果的文件，存放在detect文件夹中
+    【5】 该阶段将检测结果进行匹配并保存结果在/home/aistudio/work/metric_learning_traffic/output/result中，采用resnet152网络，image_size为[3,128,128],其他参数同基线。
     
 **************************************************************************************************************************************** 
+### 成绩记录        
 
-         
+ 将生成的detect文件上传，最终得到初赛test数据集0.54676和复赛test数据集0.59972的F1 Score
+
+### 参考文献
+- PaddleDetection (https://github.com/PaddlePaddle/PaddleDetection) 
+
+- metric learning (https://aistudio.baidu.com/aistudio/projectdetail/169466)
+
+- resnext (https://arxiv.org/abs/1611.05431)
+
+- Faster RCNN(https://arxiv.org/abs/1506.01497)
+
+### 联系方式
+
+李想[@似水5494264](https://blog.csdn.net/tiancailx)(同方威视技术股份有限公司)、
+于子锋[@诺艾尔和阿梓喵](https://github.com/nuoaier)、
+杨航[@绝对灬尖刀ok](https://aistudio.baidu.com/aistudio/personalcenter/thirdview/315398)(上海汽车变速器有限公司)         
     
