@@ -52,17 +52,13 @@
   
     【1】 我们使用了COCO数据集上训练好的faster_rcnn_ResNeXt101_vd_FPN_1x模型做迁移学习，调参训练后mAP值可以超过0.8    
 
-    【2】 因为小目标较多，因此我们采用FPN并采用kmeans法首先求出锚框大小的大小分布，在work/PaddleDetection_traffic/configs/traffic/faster_rcnn_x101_vd_64x4d_fpn_1x.yml
-    和work/PaddleDetection_traffic/configs/traffic/faster_rcnn_x101_vd_64x4d_fpn_1x_test.yml中的配置文件将anchor_sizes改为[6,12,18,28,48]并将anchor_start_size改为6
+    【2】 因为小目标较多，因此我们采用FPN并采用kmeans法首先求出锚框大小的大小分布，在work/PaddleDetection_traffic/configs/traffic/faster_rcnn_x101_vd_64x4d_fpn_1x.yml和work/PaddleDetection_traffic/configs/traffic/faster_rcnn_x101_vd_64x4d_fpn_1x_test.yml中的配置文件将anchor_sizes改为[6,12,18,28,48]并将anchor_start_size改为6
     
-    【3】 调试并修改nms的score_threshold为0.07；求出图像的均值和方差，并在work/PaddleDetection_traffic/configs/traffic/faster_fpn_reader.yml
-    文件中修改
+    【3】 调试并修改nms的score_threshold为0.07；求出图像的均值和方差，并在work/PaddleDetection_traffic/configs/traffic/faster_fpn_reader.yml文件中修改
 
-    【4】 将gamma改为[0.3,0.1,0.01]，学习率以及学习率衰减同基线，最后一次衰减减少1万次迭代，共迭代11万次，milestones为[60000，80000，100000]。
-    分别在faster_rcnn_x101_vd_64x4d_fpn_1x.yml和 faster_rcnn_x101_vd_64x4d_fpn_1x_test.yml中的配置文件修改
+    【4】 将gamma改为[0.3,0.1,0.01]，学习率以及学习率衰减同基线，最后一次衰减减少1万次迭代，共迭代11万次，milestones为[60000，80000，100000]。分别在faster_rcnn_x101_vd_64x4d_fpn_1x.yml和 faster_rcnn_x101_vd_64x4d_fpn_1x_test.yml中的配置文件修改
 
-    【5】 验证结果：复赛训练集很大，不建议在复赛训练阶段加入验证，时间较长。验证阶段，在配置文件中将save_prediction_only=true时，将会直接生成检测
-    结果的文件，存放在detect文件夹中
+    【5】 验证结果：复赛训练集很大，不建议在复赛训练阶段加入验证，时间较长。验证阶段，在配置文件中将save_prediction_only=true时，将会直接生成检测结果的文件，存放在detect文件夹中
     
 **************************************************************************************************************************************** 
 
