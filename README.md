@@ -23,15 +23,16 @@
 - **numpy 1.17.5**   
 ****************************************************************************************************************************************
 ### 方案介绍
-  **【1】** 本次比赛涉及的技术方面很广泛，在Baseline的框架基础上，将比赛分为两个阶段，本项目在基线的基础上进行修改，利用目标检测开发套件PaddleDetection与度量学习库（metric_learning）进行开发。    
+
+  - 本次比赛涉及的技术方面很广泛，在Baseline的框架基础上，将比赛分为两个阶段，本项目在基线的基础上进行修改，利用目标检测开发套件PaddleDetection与度量学习库（metric_learning）进行开发。   
     
-  **【2】** 检测阶段使用faster_rcnn_ResNeXt101_vd_FPN模型做迁移学习，采用kmeans法首求出锚框大小的大小分布，在配置文件中将anchor_sizes改为[6,12,18,28,48]并将anchor_start_size改为6 
+  - 检测阶段使用faster_rcnn_ResNeXt101_vd_FPN模型做迁移学习，采用kmeans法首求出锚框大小的大小分布，在配置文件中将anchor_sizes改为[6,12,18,28,48]并将anchor_start_size改为6 
     
-  **【3】** 修改nms的score_threshold为0.07；求出图像的均值和方差分别为[0.4255, 0.4542, 0.4393]和[0.261276, 0.2659, 0.27744] 
+  - 修改nms的score_threshold为0.07；求出图像的均值和方差分别为[0.4255, 0.4542, 0.4393]和[0.261276, 0.2659, 0.27744] 
     
-  **【4】** 细分类和匹配部分，将image_shape改为[3,128,128]。匹配部分采用resnet152网络，通过triplet loss进行匹配训练, 求得输入图像大小的均值和方差，分别为[0.473,0.4997,0.49139]和[0.26557,0.2672,0.278],在imgtool文件修改
+  - 细分类和匹配部分，将image_shape改为[3,128,128]。匹配部分采用resnet152网络，通过triplet loss进行匹配训练, 求得输入图像大小的均值和方差，分别为[0.473,0.4997,0.49139]和[0.26557,0.2672,0.278],在imgtool文件修改
     
-  **【5】** 去掉随机裁剪，并将interpolation修改为更为广泛使用的线性插值cv2.INTER_LANCZOS4，image_size同为[3,128,128],调试并采用margin为0.7，最后提交成绩     
+  - 去掉随机裁剪，并将interpolation修改为更为广泛使用的线性插值cv2.INTER_LANCZOS4，image_size同为[3,128,128],调试并采用margin为0.7，最后提交成绩     
     
 ****************************************************************************************************************************************
 ### 详细处理流程 
@@ -79,13 +80,13 @@
  将生成的detect文件上传，最终得到初赛test数据集0.54676和复赛test数据集0.59972的F1 Score
 
 ### 参考文献
-- PaddleDetection (https://github.com/PaddlePaddle/PaddleDetection) 
+[1] PaddleDetection (https://github.com/PaddlePaddle/PaddleDetection) 
 
-- metric learning (https://aistudio.baidu.com/aistudio/projectdetail/169466)
+[2] metric learning (https://aistudio.baidu.com/aistudio/projectdetail/169466)
 
-- resnext (https://arxiv.org/abs/1611.05431)
+[3] resnext (https://arxiv.org/abs/1611.05431)
 
-- Faster RCNN(https://arxiv.org/abs/1506.01497)
+[4] Faster RCNN(https://arxiv.org/abs/1506.01497)
 
 ### 联系方式
 
