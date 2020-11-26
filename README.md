@@ -52,7 +52,7 @@
   
     【1】 我们使用了COCO数据集上训练好的faster_rcnn_ResNeXt101_vd_FPN_1x模型做迁移学习，调参训练后mAP值可以超过0.8    
 
-    【2】 因为小目标较多，因此我们采用FPN并采用kmeans法首先求出锚框大小的大小分布，在work/PaddleDetection_traffic/configs/traffic/faster_rcnn_x101_vd_64x4d_fpn_1x.yml和work/PaddleDetection_traffic/configs/traffic/faster_rcnn_x101_vd_64x4d_fpn_1x_test.yml中的配置文件将anchor_sizes改为[6,12,18,28,48]并将anchor_start_size改为6
+    【2】 因为小目标较多，因此我们采用FPN并采用kmeans法首先求出锚框大小的大小分布，将配置文件work/PaddleDetection_traffic/configs/traffic/faster_rcnn_x101_vd_64x4d_fpn_1x.yml和work/PaddleDetection_traffic/configs/traffic/faster_rcnn_x101_vd_64x4d_fpn_1x_test.yml中的anchor_sizes改为[6,12,18,28,48]并将anchor_start_size改为6
     
     【3】 调试并修改nms的score_threshold为0.07；求出图像的均值和方差，并在work/PaddleDetection_traffic/configs/traffic/faster_fpn_reader.yml文件中修改
 
